@@ -41,12 +41,7 @@ public class AppModule {
     }
 
     private static HttpLoggingInterceptor getHttpLoggingInterceptor() {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                System.out.println("body: " + message);
-            }
-        });
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(message -> System.out.println("body: " + message));
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return interceptor;
     }

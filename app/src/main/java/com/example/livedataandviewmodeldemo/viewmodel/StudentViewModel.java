@@ -27,15 +27,15 @@ public class StudentViewModel extends BaseViewModel<String> {
     @Inject
     ApiService apiService;
 
-
     public StudentViewModel(@NonNull Application application) {
         super(application);
         AppComponent appComponent = DaggerAppComponent.builder().build();
         ViewModelComponent daggerViewModelComponent = DaggerViewModelComponent.builder().appComponent(appComponent).build();
         daggerViewModelComponent.inject(this);
+
     }
 
-    @Override
+
     public MutableLiveData<String> gettMutableLiveData() {
         return stringMutableLiveData;
     }
@@ -49,7 +49,7 @@ public class StudentViewModel extends BaseViewModel<String> {
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                            addSubscribe(d);
                     }
 
                     @Override

@@ -14,7 +14,7 @@ import com.example.livedataandviewmodeldemo.R;
 import com.example.livedataandviewmodeldemo.base.BaseFragment;
 import com.example.livedataandviewmodeldemo.viewmodel.StudentViewModel;
 
-public class FragmentOne extends BaseFragment {
+public class FragmentOne extends BaseFragment<StudentViewModel> {
     TextView tv1;
     StudentViewModel studentViewModel;
 
@@ -25,22 +25,23 @@ public class FragmentOne extends BaseFragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        tv1 = view.findViewById(R.id.tv1);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+//        tv1 = view.findViewById(R.id.tv1);
         studentViewModel = ViewModelProviders.of(getActivity()).get(StudentViewModel.class);
-        tv1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                studentViewModel.getData();
-            }
-        });
+//        tv1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+                viewModel.getData();
+//            }
+//        });
 
-        studentViewModel.gettMutableLiveData().observe(this, new Observer<String>() {
+        viewModel.gettMutableLiveData().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                tv1.setText(s);
+//                tv1.setText(String.valueOf(System.currentTimeMillis())+s);
             }
         });
     }
+
 }

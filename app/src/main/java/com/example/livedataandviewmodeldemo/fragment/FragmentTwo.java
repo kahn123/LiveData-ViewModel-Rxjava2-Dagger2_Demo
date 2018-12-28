@@ -14,9 +14,7 @@ import com.example.livedataandviewmodeldemo.R;
 import com.example.livedataandviewmodeldemo.base.BaseFragment;
 import com.example.livedataandviewmodeldemo.viewmodel.StudentViewModel;
 
-import io.reactivex.Observable;
-
-public class FragmentTwo extends BaseFragment {
+public class FragmentTwo extends BaseFragment<StudentViewModel> {
     StudentViewModel studentViewModel;
     TextView tv2;
 
@@ -30,13 +28,13 @@ public class FragmentTwo extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tv2 = view.findViewById(R.id.tv2);
-        studentViewModel = ViewModelProviders.of(getActivity()).get(StudentViewModel.class);
-        studentViewModel.gettMutableLiveData().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                tv2.setText(s);
-            }
-        });
+//        studentViewModel = ViewModelProviders.of(getActivity()).get(StudentViewModel.class);
+//        viewModel.gettMutableLiveData().observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                tv2.setText(String.valueOf(System.currentTimeMillis())+s);
+//            }
+//        });
 
     }
 }

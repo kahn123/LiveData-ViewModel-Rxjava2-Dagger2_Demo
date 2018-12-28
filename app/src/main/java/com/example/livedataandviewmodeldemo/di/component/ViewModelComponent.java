@@ -5,7 +5,7 @@ import com.example.livedataandviewmodeldemo.viewmodel.StudentViewModel;
 
 import dagger.Component;
 
-@Component(dependencies = AppComponent.class,modules = ViewModelModule.class)
+@Component(dependencies = AppComponent.class, modules = ViewModelModule.class)
 public interface ViewModelComponent {
 
     void inject(StudentViewModel studentViewModel);
