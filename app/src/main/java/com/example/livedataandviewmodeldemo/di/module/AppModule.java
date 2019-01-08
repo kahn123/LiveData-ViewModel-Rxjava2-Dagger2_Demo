@@ -26,7 +26,7 @@ public class AppModule {
         return new Retrofit.Builder()
                 .baseUrl("https://www.apiopen.top/")
                 .client(okHttpClient)
-                .addConverterFactory(StringConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }

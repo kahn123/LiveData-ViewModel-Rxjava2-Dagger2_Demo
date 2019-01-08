@@ -33,7 +33,13 @@ public abstract class BaseActivity<T extends BaseViewModel> extends AppCompatAct
         getLifecycle().addObserver(viewModel);
     }
     private Class<T> getTClass() {
-        return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+//        (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        Class<T> clazz;
+        ParameterizedType pt = (ParameterizedType)getClass().getGenericSuperclass();
+        System.out.println("====>>>>"+(Class<T>)pt.getActualTypeArguments()[0]);
+        clazz = (Class<T>)pt.getActualTypeArguments()[0];
+
+        return clazz;
     }
 
 

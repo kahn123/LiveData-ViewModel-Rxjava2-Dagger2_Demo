@@ -16,25 +16,52 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class StudentViewModel extends BaseViewModel<String> {
+public class StudentViewModel extends BaseViewModel {
     MutableLiveData<String> stringMutableLiveData = new MutableLiveData<>();
-    @Inject
-    ApiService apiService;
+
 
     public StudentViewModel(@NonNull Application application) {
         super(application);
-        AppComponent appComponent = DaggerAppComponent.builder().build();
-        ViewModelComponent daggerViewModelComponent = DaggerViewModelComponent.builder().appComponent(appComponent).build();
-        daggerViewModelComponent.inject(this);
 
+        Observable.create(new ObservableOnSubscribe<Object>() {
+            @Override
+            public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
+
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Object>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Object o) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
-
 
     public MutableLiveData<String> gettMutableLiveData() {
         return stringMutableLiveData;
@@ -46,10 +73,16 @@ public class StudentViewModel extends BaseViewModel<String> {
         apiService.obtainNews(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .retry(10, new Predicate<Throwable>() {
+                    @Override
+                    public boolean test(Throwable throwable) throws Exception {
+                        return true;
+                    }
+                })
                 .subscribe(new Observer<String>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                            addSubscribe(d);
+                        addSubscribe(d);
                     }
 
                     @Override
@@ -68,6 +101,5 @@ public class StudentViewModel extends BaseViewModel<String> {
                     }
                 });
     }
-
 
 }

@@ -30,17 +30,21 @@ public abstract class BaseFragment<T extends BaseViewModel> extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setBaseViewModel(getTClass());
+        getLifecycle().addObserver(viewModel);
     }
 
     private void setBaseViewModel(@NonNull Class<T> modelClass) {
         if (getActivity() != null) {
             viewModel = ViewModelProviders.of(this).get(modelClass);
-            getLifecycle().addObserver(viewModel);
+
         }
     }
 
     private Class<T> getTClass() {
-        return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        Class<T> clazz;
+        ParameterizedType pt = (ParameterizedType)getClass().getGenericSuperclass();
+        clazz = (Class<T>)pt.getActualTypeArguments()[0];
+        return clazz;
     }
 
     @Override
